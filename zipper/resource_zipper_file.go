@@ -13,7 +13,6 @@ func resourceFile() *schema.Resource {
 		Read:   resourceFileRead,
 		Update: resourceFileUpdate,
 		Delete: resourceFileDelete,
-		Exists: resourceFileExists,
 		CustomizeDiff: func(diff *schema.ResourceDiff, v interface{}) error {
 			if diff.Id() != diff.Get("output_sha") {
 				return diff.SetNewComputed("output_sha")
@@ -70,14 +69,12 @@ func resourceFileCreate(d *schema.ResourceData, meta interface{}) error {
 	d.SetId(sha1)
 	d.Set("output_sha", sha1)
 
-	zipFile, err := s.Zip()
+	size, err := createZip(s, d.Get("output_path").(string))
 	if err != nil {
 		return err
 	}
-	defer zipFile.Close()
-	d.Set("output_size", int(zipFile.Size()))
-
-	return createZip(zipFile, d.Get("output_path").(string))
+	d.Set("output_size", int(size))
+	return nil
 }
 
 func resourceFileRead(d *schema.ResourceData, meta interface{}) error {
@@ -91,7 +88,29 @@ func resourceFileRead(d *schema.ResourceData, meta interface{}) error {
 		return err
 	}
 	d.Set("output_sha", newSha1)
-	return err
+
+	onlyWhen := d.Get("not_when_nonexists").(bool)
+	if onlyWhen {
+		return nil
+	}
+	currentSize := d.Get("output_size").(int)
+	if currentSize == 0 {
+		currentSize = -1
+	}
+	outputPath := d.Get("output_path").(string)
+	fstat, err := os.Stat(outputPath)
+	if err == nil && int(fstat.Size()) == currentSize {
+		return nil
+	}
+	if err != nil && !os.IsNotExist(err) {
+		return err
+	}
+	size, err := createZip(s, d.Get("output_path").(string))
+	if err != nil {
+		return err
+	}
+	d.Set("output_size", int(size))
+	return nil
 }
 
 func resourceFileDelete(d *schema.ResourceData, meta interface{}) error {
@@ -107,29 +126,23 @@ func resourceFileUpdate(d *schema.ResourceData, meta interface{}) error {
 	return nil
 }
 
-func resourceFileExists(d *schema.ResourceData, meta interface{}) (bool, error) {
-	onlyWhen := d.Get("not_when_nonexists").(bool)
-	if onlyWhen {
-		return d.Id() != "", nil
+func createZip(s *zipper.Session, outputPath string) (int64, error) {
+	zipFile, err := s.Zip()
+	if err != nil {
+		return 0, err
 	}
-	outputPath := d.Get("output_path").(string)
-	_, err := os.Stat(outputPath)
-	if err == nil {
-		return true, nil
-	}
-	if err != nil && os.IsNotExist(err) {
-		return false, nil
-	}
-	return false, err
-}
+	defer zipFile.Close()
 
-func createZip(zipFile zipper.ZipReadCloser, outputPath string) error {
 	f, err := os.Create(outputPath)
 	if err != nil {
-		return err
+		return 0, err
 	}
 	defer f.Close()
 
 	_, err = io.Copy(f, zipFile)
-	return err
+	if err != nil {
+		return 0, err
+	}
+	return zipFile.Size(), nil
+
 }

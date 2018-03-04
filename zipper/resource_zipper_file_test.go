@@ -130,6 +130,42 @@ func TestAccResourceZipperFile_NotOnNonExists(t *testing.T) {
 		},
 	})
 }
+
+func TestAccResourceZipperFile_RecreateOnNonExists(t *testing.T) {
+	var fileSize string
+
+	r.Test(t, r.TestCase{
+		Providers:    testProviders,
+		CheckDestroy: testAccCheckZipFileDestroyed(zipFilePath),
+		Steps: []r.TestStep{
+			r.TestStep{
+				Config: testAccZipperFileContent,
+				Check: r.ComposeTestCheckFunc(
+					testAccZipFileExists(zipFilePath, &fileSize),
+					r.TestCheckResourceAttrPtr("zipper_file.foo", "output_size", &fileSize),
+
+					r.TestMatchResourceAttr(
+						"zipper_file.foo", "output_sha", regexp.MustCompile(`^[0-9a-f]{40}$`),
+					),
+				),
+			},
+			r.TestStep{
+				PreConfig: func() {
+					os.Remove(zipFilePath)
+				},
+				Config: testAccZipperFileContent,
+				Check: r.ComposeTestCheckFunc(
+					testAccZipFileExists(zipFilePath, &fileSize),
+					r.TestCheckResourceAttrPtr("zipper_file.foo", "output_size", &fileSize),
+
+					r.TestMatchResourceAttr(
+						"zipper_file.foo", "output_sha", regexp.MustCompile(`^[0-9a-f]{40}$`),
+					),
+				),
+			},
+		},
+	})
+}
 func TestAccResourceZipperFile_AutoDetect(t *testing.T) {
 	var fileSize string
 	r.Test(t, r.TestCase{
