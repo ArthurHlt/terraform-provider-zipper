@@ -1,0 +1,8 @@
+language: go
+go:
+- 1.9
+
+install:
+- go get github.com/hashicorp/terraform
+
+script: TF_ACC=1 go test -v ./...
