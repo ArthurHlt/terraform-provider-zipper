@@ -14,7 +14,7 @@ func Provider() terraform.ResourceProvider {
 			"skip_ssl_validation": &schema.Schema{
 				Type:        schema.TypeBool,
 				Required:    true,
-				DefaultFunc: schema.EnvDefaultFunc("ZIPPER_SKIP_SSL_VALIDATION", "true"),
+				DefaultFunc: schema.EnvDefaultFunc("ZIPPER_SKIP_SSL_VALIDATION", "false"),
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
