@@ -7,7 +7,7 @@ require (
 	dmitri.shuralyov.com/app/changes v0.0.0-20181114035150-5af16e21babb // indirect
 	dmitri.shuralyov.com/service/change v0.0.0-20190203163610-217368fe4577 // indirect
 	git.apache.org/thrift.git v0.12.0 // indirect
-	github.com/ArthurHlt/zipper v1.0.1
+	github.com/ArthurHlt/zipper v1.1.0
 	github.com/Shopify/sarama v1.21.0 // indirect
 	github.com/agext/levenshtein v1.2.2 // indirect
 	github.com/apparentlymart/go-cidr v1.0.0 // indirect
@@ -18,12 +18,13 @@ require (
 	github.com/cheggaaa/pb v2.0.6+incompatible // indirect
 	github.com/coreos/go-systemd v0.0.0-20190212144455-93d5ec2c7f76 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
-	github.com/gliderlabs/ssh v0.1.3 // indirect
+	github.com/gliderlabs/ssh v0.1.4 // indirect
 	github.com/go-logfmt/logfmt v0.4.0 // indirect
 	github.com/gogo/protobuf v1.2.1 // indirect
 	github.com/golang/lint v0.0.0-20190227174305-5b3e6a55c961 // indirect
-	github.com/golang/protobuf v1.3.0 // indirect
+	github.com/golang/protobuf v1.3.1 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/google/go-cmp v0.3.0 // indirect
 	github.com/google/pprof v0.0.0-20190228041337-2ef8d84b2e3c // indirect
 	github.com/googleapis/gax-go v2.0.2+incompatible // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
@@ -42,6 +43,7 @@ require (
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
 	github.com/kisielk/errcheck v1.2.0 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
+	github.com/kr/pty v1.1.4 // indirect
 	github.com/mattn/go-colorable v0.1.1 // indirect
 	github.com/mattn/go-isatty v0.0.6 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
@@ -50,6 +52,8 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
 	github.com/mitchellh/hashstructure v1.0.0 // indirect
+	github.com/onsi/ginkgo v1.8.0 // indirect
+	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/openzipkin/zipkin-go v0.1.5 // indirect
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/posener/complete v1.2.1 // indirect
@@ -73,6 +77,7 @@ require (
 	github.com/shurcooL/webdavfs v0.0.0-20181215192745-5988b2d638f6 // indirect
 	github.com/sirupsen/logrus v1.3.0 // indirect
 	github.com/spf13/pflag v1.0.3 // indirect
+	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/ulikunitz/xz v0.5.6 // indirect
 	github.com/vmihailenco/msgpack v4.0.2+incompatible // indirect
 	github.com/xanzy/ssh-agent v0.2.1 // indirect
@@ -80,16 +85,19 @@ require (
 	go.opencensus.io v0.19.0 // indirect
 	go4.org v0.0.0-20190218023631-ce4c26f7be8e // indirect
 	golang.org/x/build v0.0.0-20190228235325-77b8b6b559a9 // indirect
-	golang.org/x/crypto v0.0.0-20190228161510-8dd112bcdc25 // indirect
+	golang.org/x/crypto v0.0.0-20190506204251-e1dfcc566284 // indirect
 	golang.org/x/exp v0.0.0-20190221220918-438050ddec5e // indirect
-	golang.org/x/net v0.0.0-20190228165749-92fc7df08ae7 // indirect
+	golang.org/x/net v0.0.0-20190503192946-f4e77d36d62c // indirect
 	golang.org/x/oauth2 v0.0.0-20190226205417-e64efc72b421 // indirect
 	golang.org/x/perf v0.0.0-20190124201629-844a5f5b46f4 // indirect
-	golang.org/x/sys v0.0.0-20190228124157-a34e9553db1e // indirect
-	golang.org/x/tools v0.0.0-20190228203856-589c23e65e65 // indirect
+	golang.org/x/sys v0.0.0-20190506115046-ca7f33d4116e // indirect
+	golang.org/x/text v0.3.2 // indirect
+	golang.org/x/tools v0.0.0-20190506145303-2d16b83fe98c // indirect
 	google.golang.org/genproto v0.0.0-20190227213309-4f5b463f9597 // indirect
+	gopkg.in/cheggaaa/pb.v1 v1.0.28 // indirect
 	gopkg.in/src-d/go-billy.v4 v4.3.0 // indirect
-	gopkg.in/src-d/go-git-fixtures.v3 v3.3.0 // indirect
+	gopkg.in/src-d/go-git-fixtures.v3 v3.5.0 // indirect
+	gopkg.in/src-d/go-git.v4 v4.11.0 // indirect
 	honnef.co/go/tools v0.0.0-20190215041234-466a0476246c // indirect
 	sourcegraph.com/sqs/pbtypes v1.0.0 // indirect
 )
