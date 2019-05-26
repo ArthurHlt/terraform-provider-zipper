@@ -11,7 +11,6 @@ which terraform &> /dev/null
 if [[ "$?" != "0" ]]; then
     echo "you must have terraform installed"
 fi
-tf_version=$(terraform --version | head -n 1 | cut -d 'v' -f 2 | cut -d '.' -f 1,2)
 
 if [[ "x$PROVIDER_ZIPPER_VERSION" == "x" ]]; then
     VERSION=$(curl -s https://api.github.com/repos/${OWNER}/${REPO_NAME}/releases/latest | grep tag_name | head -n 1 | cut -d '"' -f 4)
@@ -46,7 +45,7 @@ fi
 if [[ "$CPUINFO" == "arm"* ]]; then
     ARCH="arm"
 fi
-FILENAME="${NAME}_${tf_version}_${OS}_${ARCH}"
+FILENAME="${NAME}_${OS}_${ARCH}"
 if [[ "$OS" == "windows" ]]; then
     FILENAME="${FILENAME}.exe"
 fi
