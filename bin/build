@@ -7,5 +7,5 @@ echo -e "\nGenerating Binary for ${GOOS} on arch ${GOARCH}..."
 
 CURRENTDIR=`pwd`
 
-CGO_ENABLED=0 go build -o $CURRENTDIR/out/terraform-provider-cloudfoundry
+CGO_ENABLED=0 go build -o $CURRENTDIR/out/terraform-provider-zipper
 echo -e "\nGenerating Binary finished."
