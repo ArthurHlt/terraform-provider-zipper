@@ -87,11 +87,11 @@ providers {
 EOF
 else
     grep -Fxq "zipper" ~/.terraformrc &> /dev/null
-    if [[ $? != 0 ]]; then
+    if [[ $? == 0 ]]; then
         echo "${NAME}-${VERSION} has been installed."
         exit 0
     fi
-    awk '/providers {/ { print; print "zipper = \"provider_path\""; next }1' ~/.terraformrc > /tmp/.terraformrc
+    awk -v provider_path="$provider_path" '/providers {/ { print; printf "    zipper = \""; printf provider_path; print "\""; next }1' ~/.terraformrc > /tmp/.terraformrc
     mv /tmp/.terraformrc ~/
 fi
 
