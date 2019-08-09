@@ -6,7 +6,7 @@ replace sourcegraph.com/sourcegraph/go-diff => sourcegraph.com/sourcegraph/go-di
 
 require (
 	cloud.google.com/go v0.43.0 // indirect
-	github.com/ArthurHlt/zipper v1.3.1
+	github.com/ArthurHlt/zipper v1.3.2
 	github.com/aws/aws-sdk-go v1.21.8 // indirect
 	github.com/go-test/deep v1.0.2 // indirect
 	github.com/google/martian v2.1.1-0.20190517191504-25dcb96d9e51+incompatible // indirect
