@@ -17,7 +17,7 @@ builds:
       - CGO_ENABLED=0
     id: provider
     main: ./
-    binary: terraform-provider-cloudfoundry
+    binary: terraform-provider-zipper
 archives:
   - id: zip-archive-provider
     builds: [provider]
