@@ -7,17 +7,29 @@ before:
     # you may remove this if you don't need go generate
     - go generate ./...
 builds:
-- env:
-  - CGO_ENABLED=0
+  - goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+    env:
+      - CGO_ENABLED=0
+    id: provider
+    main: ./
+    binary: terraform-provider-cloudfoundry
 archives:
-- replacements:
-    darwin: Darwin
-    linux: Linux
-    windows: Windows
-    386: i386
-    amd64: x86_64
+  - id: zip-archive-provider
+    builds: [provider]
+    name_template: "{{ .Binary }}_{{ .Os }}_{{ .Arch }}"
+    format: zip
+  - id: binary-archive-provider
+    builds: [provider]
+    name_template: "{{ .Binary }}_{{ .Os }}_{{ .Arch }}"
+    format: binary
 checksum:
   name_template: 'checksums.txt'
+  algorithm: sha1
 snapshot:
   name_template: "{{ .Tag }}-next"
 changelog:

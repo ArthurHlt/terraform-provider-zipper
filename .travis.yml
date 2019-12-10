@@ -1,20 +1,15 @@
 language: go
 go:
-  - '1.12'
+  - '1.13'
 install:
   - export GO111MODULE=on
 script: TF_ACC=1 go test -v ./...
 after_success:
   - bin/build-all.sh
 deploy:
-  provider: releases
-  api_key:
-    secure: xBHBeSBCSehtlWOB2zM7FhWUxEXN2LNp92cPzVmZM10N8QAODG2OFjYKC9l/Lwc9z434PtokMc6IWapxRrGv41DOEhggRQ0eKoSmKrpSDRjhrhKUnC9dZQfWjxqFzrf2udvJ+RLFwoM5/dCV/d3A5drktf26jAtVpkAXSznQdYj2rMZEyYOX8DxLL1oJeNua7lXR6DPOf4b19r5u2Lu5xu5RuCuNDbnnCkKOOQaXyOG6KzUXbv10Ziw++dtGmhnIrlDAlQlwJT9IIGvdlOrnLgLsZHiKSa8BaAZikYd9bOZFS1RB0T86oM1FjnYQmAoTjT/hn3NkttIO9J+zLkpHlrbwikkdbjAjB+L47J7lpO3/CyGu/50AQQYeF35KvzaNCDtJKq2aFNljS0SwVaQraAKkROaql9Ss1GL9Eqs41vneH6Lnx7CH/6Ot9UZta+o+jP0eE2v6hnYJVGJioUksfED+SY0t7rNbLY3wPcxzAXvwymYSe7OFx4f0QUzL374RqRja319avlfXIsPouBTPB1qJqtk/nnfYNLO6nC4MzQ/yAkFjcaofGZrkD6chWh25bIv7DUYkqdg/4ql4Cm1n6wp1a4uibm+AsKdWjxop0eIZYUcs104r5xMUYSpBjubQ9vMd6C3yB4d3yLh/DBmuHMQ2PoQHYDXPrqZRLPO6lpw=
-  file:
-    - out/terraform-provider-zipper_darwin_amd64
-    - out/terraform-provider-zipper_linux_amd64
-    - out/terraform-provider-zipper_windows_amd64.exe
+- provider: script
+  skip_cleanup: true
+  script: curl -sL https://git.io/goreleaser | bash
   on:
     tags: true
-    all_branches: true
-  skip_cleanup: true
+    condition: $TRAVIS_OS_NAME = linux

@@ -1,7 +1,5 @@
 module github.com/ArthurHlt/terraform-provider-zipper
 
-replace github.com/golang/lint => github.com/golang/lint v0.0.0-20190227174305-8f45f776aaf1
-
 replace sourcegraph.com/sourcegraph/go-diff => sourcegraph.com/sourcegraph/go-diff v0.5.0
 
 require (
@@ -28,3 +26,5 @@ require (
 	google.golang.org/genproto v0.0.0-20190801165951-fa694d86fc64 // indirect
 	google.golang.org/grpc v1.22.1 // indirect
 )
+
+go 1.13
