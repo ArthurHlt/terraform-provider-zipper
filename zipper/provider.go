@@ -1,14 +1,15 @@
 package zipper
 
 import (
+	"context"
 	"crypto/tls"
 	"github.com/ArthurHlt/zipper"
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/hashicorp/terraform/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"net/http"
 )
 
-func Provider() terraform.ResourceProvider {
+func Provider() *schema.Provider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
 			"skip_ssl_validation": &schema.Schema{
@@ -23,15 +24,15 @@ func Provider() terraform.ResourceProvider {
 		DataSourcesMap: map[string]*schema.Resource{
 			"zipper_file": dataSourceFile(),
 		},
-		ConfigureFunc: providerConfigure,
+		ConfigureContextFunc: providerConfigure,
 	}
 }
 
-func providerConfigure(d *schema.ResourceData) (interface{}, error) {
+func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 
 	m, err := zipper.NewManager(zipper.NewGitHandler(), &zipper.HttpHandler{}, &zipper.LocalHandler{})
 	if err != nil {
-		return nil, err
+		return nil, diag.FromErr(err)
 	}
 	m.SetHttpClient(&http.Client{
 		Transport: &http.Transport{

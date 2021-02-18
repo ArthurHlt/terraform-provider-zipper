@@ -1,8 +1,9 @@
 package zipper
 
 import (
+	"context"
 	"github.com/ArthurHlt/zipper"
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"io"
 	"os"
 )
@@ -13,7 +14,7 @@ func resourceFile() *schema.Resource {
 		Read:   resourceFileRead,
 		Update: resourceFileUpdate,
 		Delete: resourceFileDelete,
-		CustomizeDiff: func(diff *schema.ResourceDiff, v interface{}) error {
+		CustomizeDiff: func(ctx context.Context, diff *schema.ResourceDiff, v interface{}) error {
 			if diff.Id() != diff.Get("output_sha") {
 				return diff.SetNewComputed("output_sha")
 			}

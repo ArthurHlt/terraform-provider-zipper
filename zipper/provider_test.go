@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"fmt"
-	r "github.com/hashicorp/terraform/helper/resource"
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/hashicorp/terraform/terraform"
+	r "github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -24,12 +24,12 @@ func TestMain(m *testing.M) {
 	os.Exit(retCode)
 }
 
-var testProviders = map[string]terraform.ResourceProvider{
+var testProviders = map[string]*schema.Provider{
 	"zipper": Provider(),
 }
 
 func TestProvider(t *testing.T) {
-	if err := Provider().(*schema.Provider).InternalValidate(); err != nil {
+	if err := Provider().InternalValidate(); err != nil {
 		t.Fatalf("err: %s", err)
 	}
 }

@@ -1,12 +1,12 @@
-# Terraform-provider-zipper [![Build Status](https://travis-ci.org/ArthurHlt/terraform-provider-zipper.svg?branch=master)](https://travis-ci.org/ArthurHlt/terraform-provider-zipper) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Terraform-provider-zipper [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A terraform provider to create to create a zip file from different kind of source, this sources can be:
+
 - [A git repository](https://github.com/ArthurHlt/zipper#git)
 - [An http url](https://github.com/ArthurHlt/zipper#http)
 - [A local folder](https://github.com/ArthurHlt/zipper#local)
 
 It uses [zipper](https://github.com/ArthurHlt/zipper) under the hood.
-
 
 ## Installations
 
@@ -39,6 +39,7 @@ $ bash -c "$(wget https://raw.github.com/ArthurHlt/terraform-provider-zipper/mas
 3. Move the provider previously downloaded in this folder: `mv /path/to/download/directory/terraform-provider-zipper ~/.terraform.d/providers`
 4. Ensure provider is executable: `chmod +x ~/.terraform.d/providers/terraform-provider-zipper`
 5. add `providers` path to your `.terraformrc`:
+
 ```bash
 cat <<EOF > ~/.terraformrc
 providers {
@@ -59,12 +60,12 @@ provider "zipper" {
 }
 
 resource "zipper_file" "fixture" {
-  source = "https://github.com/ArthurHlt/go-lambda-ping.git"
+  source      = "https://github.com/ArthurHlt/go-lambda-ping.git"
   output_path = "path/to/lambda/function.zip"
 }
 
 resource "aws_iam_role" "lambda_exec_role" {
-  name = "lambda_exec_role"
+  name               = "lambda_exec_role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -83,12 +84,12 @@ EOF
 }
 
 resource "aws_lambda_function" "demo_lambda" {
-  function_name = "demo_lambda"
-  handler = "main"
-  runtime = "go1.x"
-  filename = "${zipper_file.fixture.output_path}"
+  function_name    = "demo_lambda"
+  handler          = "main"
+  runtime          = "go1.x"
+  filename         = "${zipper_file.fixture.output_path}"
   source_code_hash = "${zipper_file.fixture.output_sha}"
-  role = "${aws_iam_role.lambda_exec_role.arn}"
+  role             = "${aws_iam_role.lambda_exec_role.arn}"
 }
 ```
 
@@ -102,13 +103,12 @@ Basic usage
 
 ```tf
 resource "zipper_file" "fixture" {
-  type = "git"
-  source = "https://github.com/ArthurHlt/go-lambda-ping.git"
-  output_path = "path/to/lambda/function.zip"
+  type               = "git"
+  source             = "https://github.com/ArthurHlt/go-lambda-ping.git"
+  output_path        = "path/to/lambda/function.zip"
   not_when_nonexists = false
 }
 ```
-
 
 ## Argument Reference
 
@@ -118,7 +118,6 @@ The following arguments are supported:
 - `output_path` - (Required) The output of the archive file.
 - `type` - (Optional) Source type to use to create zip, e.g.: http, local or git. (if omitted type will be auto-detected)
 - `not_when_nonexists` - (Optional) Set to true to not create zip when not exists at output_path if sources files didn't change. (to earn time if not necessary)
-
 
 ## Attributes Reference
 
