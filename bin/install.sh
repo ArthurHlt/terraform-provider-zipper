@@ -13,7 +13,7 @@ if [[ "$?" != "0" ]]; then
 fi
 
 if [[ "x$PROVIDER_ZIPPER_VERSION" == "x" ]]; then
-    VERSION=$(curl -s https://api.github.com/repos/${OWNER}/${REPO_NAME}/releases/latest | grep tag_name | head -n 1 | cut -d '"' -f 4)
+    VERSION='v0.13.2'
 else
     VERSION=$PROVIDER_ZIPPER_VERSION
 fi
